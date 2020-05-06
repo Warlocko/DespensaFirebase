@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.uber2.modelo.Item
@@ -33,6 +34,8 @@ class ItemViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.renglon_item, parent, false)) {
     private var cantidadItemTextView: TextView? = null
     private var itemDescripcionTextView: TextView? = null
+    private var cantidadEditValue: EditText? = null
+    private var descripcionEditValue: EditText? = null
     private var borrarBtn: Button? = null
     private var modificarBtn: Button? = null
 
@@ -40,6 +43,8 @@ class ItemViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     init {
         cantidadItemTextView = itemView.findViewById(R.id.item_cantidad)
         itemDescripcionTextView = itemView.findViewById(R.id.item_descipcion)
+        cantidadEditValue = itemView.findViewById(R.id.cantidadEdit)
+        descripcionEditValue = itemView.findViewById(R.id.descripcionEdit)
         borrarBtn = itemView.findViewById(R.id.borrarUnoButton)
         modificarBtn = itemView.findViewById(R.id.ModificarButton)
     }
@@ -56,7 +61,12 @@ class ItemViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
             despensaFirebase.borraUnItem(toDelete)
         }
         modificarBtn?.setOnClickListener {
-
+            val despensaFirebase = DespensaFirebase()
+            val toModify = Item()
+            toModify.id = item.id
+            toModify.cantidad= cantidadEditValue?.text.toString().toInt()
+            toModify.descripcion = descripcionEditValue?.text.toString()
+            despensaFirebase.modificaUnItem(toModify)
         }
 
     }

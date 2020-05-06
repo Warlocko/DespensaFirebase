@@ -61,7 +61,8 @@ class DespensaFirebase  {
     }
 
     fun modificaUnItem( item: Item){
-
+        val key = item.id
+        database.child("despensa").child(key!!).setValue(item)
     }
 
     fun obtenTodos( ){
