@@ -64,8 +64,17 @@ class ItemViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
             val despensaFirebase = DespensaFirebase()
             val toModify = Item()
             toModify.id = item.id
-            toModify.cantidad= cantidadEditValue?.text.toString().toInt()
-            toModify.descripcion = descripcionEditValue?.text.toString()
+            if(cantidadEditValue?.text.toString()!=""){
+                toModify.cantidad= cantidadEditValue?.text.toString().toInt()
+            }else{
+                toModify.cantidad = item.cantidad
+            }
+
+            if(descripcionEditValue?.text.toString()!=""){
+                toModify.descripcion = descripcionEditValue?.text.toString()
+            }else {
+                toModify.descripcion = item.descripcion
+            }
             despensaFirebase.modificaUnItem(toModify)
         }
 

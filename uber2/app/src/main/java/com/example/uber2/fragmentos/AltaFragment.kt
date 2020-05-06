@@ -39,8 +39,16 @@ class AltaFragment : Fragment() {
             val despensaFirebase = DespensaFirebase()
             val item = Item()
             item.id = ""
-            item.cantidad = cantidad_edittext.text.toString().toInt()
-            item.descripcion = description_edittext.text.toString()
+            if(cantidad_edittext?.text.toString()!=""){
+                item.cantidad= cantidad_edittext?.text.toString().toInt()
+            }else{
+                item.cantidad = 0
+            }
+            if(description_edittext?.text.toString()!=""){
+                item.descripcion = description_edittext?.text.toString()
+            }else {
+                item.descripcion = "Sin descripcion"
+            }
             despensaFirebase.cargaUnItem(item)
             context!!.hideKeyboard(it)
         }
